@@ -1,11 +1,10 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
 
     defaultConfig {
-        applicationId "com.example.imgloader.glideimgloader"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

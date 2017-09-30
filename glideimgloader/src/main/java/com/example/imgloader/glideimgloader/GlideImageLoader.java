@@ -80,8 +80,8 @@ public class GlideImageLoader {
         return Uri.parse(ANDROID_RESOURCE + getContext().getPackageName() + SEPARATOR + resourceId);
     }
 
-    public void load(int resId, RequestOptions options){
-        load(resId2Uri(resId),options);
+    public void load(int resId, RequestOptions options) {
+        load(resId2Uri(resId), options);
     }
 
     public void load(Uri uri, RequestOptions options) {
@@ -94,16 +94,15 @@ public class GlideImageLoader {
         requestBuilder(url, options).into(getImageView());
     }
 
-    public RequestBuilder<Drawable> requestBuilder(Object object,RequestOptions options){
-
-        this.mImageUrlObj = object;
+    public RequestBuilder<Drawable> requestBuilder(Object obj, RequestOptions options) {
+        this.mImageUrlObj = obj;
         return Glide.with(getContext())
-                .load(object)
+                .load(obj)
                 .apply(options)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        mainThreadCallback(mLastBytesRead,mTotalBytes,true,e);
+                        mainThreadCallback(mLastBytesRead, mTotalBytes, true, e);
                         ProgressManager.removeProgressListener(internalProgressListener);
                         return false;
                     }
@@ -117,9 +116,10 @@ public class GlideImageLoader {
                 });
     }
 
-    public RequestOptions requestOptions (int placeholderResId){
-        return requestOptions(placeholderResId,placeholderResId);
+    public RequestOptions requestOptions(int placeholderResId) {
+        return requestOptions(placeholderResId, placeholderResId);
     }
+
     public RequestOptions requestOptions(int placeholderResId, int errorResId) {
         return new RequestOptions()
                 .placeholder(placeholderResId)
@@ -134,6 +134,7 @@ public class GlideImageLoader {
         return requestOptions(placeholderResId, errorResId)
                 .transform(new GlideCircleTransformation());
     }
+
     public void loadImage(String url, int placeholderResId) {
         load(url, requestOptions(placeholderResId));
     }
@@ -183,14 +184,15 @@ public class GlideImageLoader {
         ProgressManager.addProgressListener(internalProgressListener);
     }
 
-    private void mainThreadCallback(final long bytesRead,final long totalBytes, final boolean isDone, final GlideException exception){
+    private void mainThreadCallback(final long bytesRead, final long totalBytes, final boolean isDone, final GlideException exception) {
         mMainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
                 final int percent = (int) ((bytesRead * 1.0f / totalBytes) * 100.0f);
-                if (onProgressListener != null){
-                    onProgressListener.onProgress((String) mImageUrlObj,bytesRead,totalBytes,isDone,exception);
+                if (onProgressListener != null) {
+                    onProgressListener.onProgress((String) mImageUrlObj, bytesRead, totalBytes, isDone, exception);
                 }
+
                 if (onGlideImageViewListener != null) {
                     onGlideImageViewListener.onProgress(percent, isDone, exception);
                 }
