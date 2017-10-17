@@ -24,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecycleViewActivity"></activity>
+        <activity android:name=".image.SingleImageActivity"
+            android:theme="@style/AppCompatFullscreenStyle"/>
+        <activity android:name=".image.ImagesActivity"
+            android:theme="@style/ImagesStyle"></activity>
     </application>
 
 </manifest>

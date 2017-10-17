@@ -56,7 +56,7 @@ public class RecycleViewActivity extends BaseActivity {
             ArrayList<ImageAttr> imageAttrs = new ArrayList<>();
             for (String url : entity.getImages()) {
                 ImageAttr attr = new ImageAttr();
-                attr.url = url;
+                attr.url =  url;
                 imageAttrs.add(attr);
             }
             if (holder.nineImageView.getAdapter() != null) {

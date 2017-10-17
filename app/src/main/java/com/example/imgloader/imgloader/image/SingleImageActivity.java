@@ -35,14 +35,14 @@ public class SingleImageActivity extends AppCompatActivity {
     CircleProgressView progressView3;
     View maskView;
 
-
     public static final String KEY_IMAGE_URL = "image_url";
     public static final String KEY_IMAGE_URL_THUMBNAIL = "image_url_thumbnail";
+
     String image_url;
     String image_url_thumbnail;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
@@ -59,8 +59,7 @@ public class SingleImageActivity extends AppCompatActivity {
         loadImage();
     }
 
-    private void loadImage() {
-
+    private void initProgressView() {
         isLoadAgain = new Random().nextInt(3) == 1;
         int randomNum = new Random().nextInt(3);
         switch (randomNum) {
@@ -81,7 +80,7 @@ public class SingleImageActivity extends AppCompatActivity {
         progressView.setVisibility(View.VISIBLE);
     }
 
-    private void initProgressView() {
+    private void loadImage() {
         glideImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +90,11 @@ public class SingleImageActivity extends AppCompatActivity {
 
         RequestOptions requestOptions = glideImageView.requestOptions(R.color.black)
                 .centerCrop();
-
         RequestOptions requestOptionsWithoutCache = glideImageView.requestOptions(R.color.black)
                 .centerCrop()
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE);
+
         GlideImageLoader imageLoader = glideImageView.getImageLoader();
 
         imageLoader.setOnGlideImageViewListener(image_url, new OnGlideImageViewListener() {
